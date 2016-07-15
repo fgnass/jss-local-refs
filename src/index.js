@@ -12,20 +12,20 @@ export default function jssLocalRefs() {
       const sheet = rule.options && rule.options.sheet
 
       rule.selector = rule.selectorText.replace(regExp, (match, local) => {
-          const smatch    = match.toString()
-          const ruleName  = smatch.substr(1, smatch.length)
+        const smatch = match.toString()
+        const ruleName = smatch.substr(1, smatch.length)
 
-          if (ruleName === local) {
-            const refRule   = sheet.getRule(ruleName)
+        if (ruleName === local) {
+          const refRule = sheet.getRule(ruleName)
 
-            if (!refRule) {
-              throw new Error(`No rule named ${ruleName}. Make sure to define it first.`)
-            }
-
-            return refRule.selector
+          if (!refRule) {
+            throw new Error(`No rule named ${ruleName}. Make sure to define it first.`)
           }
 
-          return smatch
+          return refRule.selector
+        }
+
+        return smatch
       })
     }
 
